@@ -10,3 +10,4 @@ Environmenet
 - urllib(pip)
 - pillow(pip)
 - screeninfo(pip)
+- twitter(pip)
