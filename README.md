@@ -11,3 +11,8 @@ Environmenet
 - pillow(pip)
 - screeninfo(pip)
 - twitter(pip)
+
+# Setup
+1. Install python3
+2. Install modules
+3. run main.py
