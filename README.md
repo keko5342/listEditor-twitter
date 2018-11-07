@@ -15,4 +15,23 @@ Environmenet
 # Setup
 1. Install python3
 2. Install modules
-3. run main.py
+3. Run main.py
+
+## Install python3
+python3の最新バージョンを公式サイトからインストールしてください。
+
+## Install modules
+python3に付属しているpip3を用いて、必要なライブラリを入手してください。
+必要なモジュールは以下の通りです。
+
+Command
+'''
+python -m pip install Modules
+'''
+複数のバージョンのPythonが存在している場合、python3, pip3を使ってコマンドを実行してください。
+
+Modules
+- twitter
+- screeninfo
+- PIL(pillow という名前でインストール)
+- oauth2
