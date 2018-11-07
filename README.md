@@ -25,9 +25,9 @@ python3に付属しているpip3を用いて、必要なライブラリを入手
 必要なモジュールは以下の通りです。
 
 Command
-'''
+```
 python -m pip install Modules
-'''
+```
 複数のバージョンのPythonが存在している場合、python3, pip3を使ってコマンドを実行してください。
 
 Modules
