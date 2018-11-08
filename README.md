@@ -31,7 +31,8 @@ python -m pip install Modules
 複数のバージョンのPythonが存在している場合、python3, pip3を使ってコマンドを実行してください。
 
 Modules
-- twitter
+- python-twitter
 - screeninfo
 - PIL(pillow という名前でインストール)
 - oauth2
+- urllib
