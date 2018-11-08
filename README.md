@@ -36,3 +36,8 @@ Modules
 - PIL(pillow という名前でインストール)
 - oauth2
 - urllib
+
+```
+python main.py
+```
+main.pyを実行してください。追加でモジュールを求められた場合、上記のpipコマンドでインストールしてください。
