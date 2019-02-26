@@ -107,7 +107,9 @@ def rtnDekGeometry():
     '''
     dekSize = str(get_monitors())
     dekStrSize = len(str(get_monitors()))
-    dekSize = dekSize[9:(dekStrSize - 2)]
+    print(dekSize)
+    #dekSize = dekSize[9:(dekStrSize - 2)]
+    dekSize = "1920x1080+0+0"
     return dekSize
 
 def rtnDekWidth():
@@ -115,7 +117,11 @@ def rtnDekWidth():
     return int(dekWidth)
 
 def rtnDekHeight():
-    dekHeight = dekSize[5:8]
+    dekHeight58 = int(dekSize[5:8])
+    dekHeight59 = int(dekSize[5:9])
+
+    dekHeight = max(dekHeight58, dekHeight59)
+
     return int(dekHeight)
 
 #setScrollList
