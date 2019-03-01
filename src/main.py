@@ -129,14 +129,20 @@ def rtnDekGeometry():
     return str(monitorInfo[0])
 
 def rtnDekWidth():
-    dekWidth = dekSize[0:4]
-    return int(dekWidth)
+    dekWidth = int(dekSize[0:4])
+    return dekWidth
 
 def rtnDekHeight():
-    dekHeight58 = int(dekSize[5:8])
-    dekHeight59 = int(dekSize[5:9])
+    try:
+        dekHeight58 = int(dekSize[5:8])
+        dekHeight59 = int(dekSize[5:9])
+    except ValueError:
+        pass
 
-    dekHeight = max(dekHeight58, dekHeight59)
+    try:
+        dekHeight = max(dekHeight58, dekHeight59)
+    except UnboundLocalError:
+        dekHeight = dekHeight58
 
     return int(dekHeight)
 
