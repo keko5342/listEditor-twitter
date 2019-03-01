@@ -105,12 +105,28 @@ def rtnDekGeometry():
     get_monitorsからは[monitor(WxH+X+Y)]という文字列+geometry形で出力されるので
     文字列へ置換を行い、geometry型へ整形する
     '''
-    dekSize = str(get_monitors())
-    dekStrSize = len(str(get_monitors()))
-    print(dekSize)
+
+    # 全モニタの情報を取得
+    plainMonitorInfo = []
+    for m in get_monitors():
+        plainMonitorInfo.append(str(m))
+        print(str(m))
+    print(plainMonitorInfo)
+
+    # geometry型に整形
+    monitorInfo = []
+    for m in plainMonitorInfo:
+        m = m.replace('monitor(', '')
+        m = m.replace(')', '')
+        monitorInfo.append(m)
+    print(monitorInfo)
+
+    #dekSize = str(get_monitors())
+    #dekStrSize = len(str(get_monitors()))
+    #print(dekSize)
     #dekSize = dekSize[9:(dekStrSize - 2)]
-    dekSize = "1920x1080+0+0"
-    return dekSize
+    #dekSize = "1920x1080+0+0"
+    return str(monitorInfo[0])
 
 def rtnDekWidth():
     dekWidth = dekSize[0:4]
