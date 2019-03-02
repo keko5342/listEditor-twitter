@@ -126,7 +126,7 @@ def rtnDekGeometry():
     #print(dekSize)
     #dekSize = dekSize[9:(dekStrSize - 2)]
     #dekSize = "1920x1080+0+0"
-    return str(monitorInfo[0])
+    return monitorInfo
 
 def rtnDekWidth():
     dekWidth = int(dekSize[0:4])
@@ -401,7 +401,8 @@ except twitter.error.TwitterError:
 root = Tk()
 root.option_add('*font', ('FixedSys', 14))
 root.title('My First App')
-dekSize = rtnDekGeometry()
+monitorinfo = rtnDekGeometry()
+dekSize = monitorinfo[0]
 root.geometry(dekSize)
 root.state('zoomed')
 dekWdhQuote = int(rtnDekWidth() / 4)
