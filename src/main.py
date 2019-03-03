@@ -6,7 +6,7 @@ from screeninfo import get_monitors
 from PIL import Image, ImageTk
 
 #twitter_access_token
-def getOthToken():
+def getOthToken(monitorinfo):
     request_token_url = 'https://api.twitter.com/oauth/request_token'
     access_token_url = 'https://api.twitter.com/oauth/access_token'
     authorize_url = 'https://api.twitter.com/oauth/authorize'
@@ -23,14 +23,6 @@ def getOthToken():
         raise Exception("Invalid response %s." % resp['status'])
 
     request_token = dict(urllib.parse.parse_qsl(content))
-    '''
-    print(request_token)
-
-    print("Request Token:")
-    print("    - oauth_token        = %s" % request_token[b'oauth_token'])
-    print("    - oauth_token_secret = %s" % request_token[b'oauth_token_secret'])
-    print()
-    '''
 
     # Step 2: Redirect to the provider. Since this is a CLI script we do not
     # redirect. In a web application you would redirect the user to the URL
@@ -46,7 +38,7 @@ def getOthToken():
     # After the user has granted access to you, the consumer, the provider will
     # redirect you to whatever URL you have told them to redirect to. You can
     # usually define this in the oauth_callback argument as well.
-    oauth_verifier = getPIN()
+    oauth_verifier = getPIN(monitorinfo)
     athRoot.destroy()
 
     # Step 3: Once the consumer has redirected the user back to the oauth_callback
@@ -61,16 +53,7 @@ def getOthToken():
 
     resp, content = client.request(access_token_url, "POST")
     access_token = dict(urllib.parse.parse_qsl(content))
-    '''
-    print(access_token)
 
-    print("Access Token:")
-    print("    - oauth_token        = %s" % access_token[b'oauth_token'])
-    print("    - oauth_token_secret = %s" % access_token[b'oauth_token_secret'])
-    print()
-    print("You may now access protected resources using the access tokens above.")
-    print()
-    '''
     #access_tokenをデータベースに保存
     dbname = 'access_token.db'
     conn = sqlite3.connect(dbname)
@@ -88,10 +71,15 @@ def getOthToken():
 
     return access_token
 
-def getPIN():
+def getPIN(monitorinfo):
     athLabel = Label(athRoot, text="認証画面で出るPINを入力してね").pack()
     athEntry = Entry(athRoot)
     athEntry.pack()
+    athLabel2 = Label(athRoot, text="モニタ解像度").pack()
+    athCombo = ttk.Combobox(athRoot, state='readonly')
+    athCombo["values"] = monitorinfo
+    athCombo.current(0)
+    athCombo.pack()
     athSubmit = Button(athRoot, text="決定", command=smtClicked).pack()
     athRoot.mainloop()
     return athEntry.get()
@@ -126,7 +114,7 @@ def rtnDekGeometry():
     #print(dekSize)
     #dekSize = dekSize[9:(dekStrSize - 2)]
     #dekSize = "1920x1080+0+0"
-    return str(monitorInfo[0])
+    return monitorInfo
 
 def rtnDekWidth():
     dekWidth = int(dekSize[0:4])
@@ -360,6 +348,10 @@ def chkBtnCallBack(event):
 CK = config.CONSUMER_KEY
 CS = config.CONSUMER_SECRET
 
+#windowsinfo
+monitorinfo = rtnDekGeometry()
+dekSize = monitorinfo[0]
+
 #access_tokenをデータベースにから取り出す
 dbname = 'access_token.db'
 conn = sqlite3.connect(dbname)
@@ -374,7 +366,7 @@ try:
 except sqlite3.OperationalError:
     athRoot = Tk()
     athRoot.geometry("200x200+500+200")
-    access_token = getOthToken()
+    access_token = getOthToken(monitorinfo)
     AT = access_token[b'oauth_token'].decode()
     ATS = access_token[b'oauth_token_secret'].decode()
     print("access_tokenない！")
@@ -401,7 +393,6 @@ except twitter.error.TwitterError:
 root = Tk()
 root.option_add('*font', ('FixedSys', 14))
 root.title('My First App')
-dekSize = rtnDekGeometry()
 root.geometry(dekSize)
 root.state('zoomed')
 dekWdhQuote = int(rtnDekWidth() / 4)
