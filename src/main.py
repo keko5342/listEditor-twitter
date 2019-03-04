@@ -393,6 +393,11 @@ except twitter.error.TwitterError:
 root = Tk()
 root.option_add('*font', ('FixedSys', 14))
 root.title('My First App')
+<<<<<<< HEAD
+=======
+monitorinfo = rtnDekGeometry()
+dekSize = monitorinfo[0]
+>>>>>>> 9458b6b055212c6827c7ed71c8df243fa3cb9cf2
 root.geometry(dekSize)
 root.state('zoomed')
 dekWdhQuote = int(rtnDekWidth() / 4)
